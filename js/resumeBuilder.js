@@ -1,3 +1,4 @@
+// BIO OBJECT
 var bio = {
 	"name": "Ben Stein",
 	"role": "Web Developer",
@@ -12,6 +13,7 @@ var bio = {
 	"skills": ["JavaScript", "Ruby", "Ionic", "Front-end Development"]
 };
 
+// EDUCATION OBJECT
 var education = {
   "schools": [{
     "name": "University of Queensland",
@@ -41,6 +43,7 @@ var education = {
   }]
 };
 
+// WORK EXPERIENCE OBJECT
 var work = {
 	"jobs": [
 		{
@@ -48,18 +51,40 @@ var work = {
 			"title": "Specialist Finance Consultant",
 			"location": "London, United Kingdom",
 			"datesWorked": "July 2015 - February 2016",
-			"description": "."
+			"description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores magnam eos, minima natus similique doloribus ex! Facilis nisi eveniet modi odit delectus, eligendi facere ipsa provident, cupiditate, illum error laborum!"
 		},
 		{
 			"employer": "Office of Rail and Road",
 			"title": "Senior Analyst",
 			"location": "London, United Kingdom",
-			"datesWorked": "March 2015 - June 2015",
-			"description": "."
+			"datesWorked": "April 2015 - June 2015",
+			"description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum aut explicabo facere soluta, tempore, fugit placeat excepturi labore debitis quos voluptatum amet natus laborum dicta esse ab recusandae architecto reiciendis."
+		},
+		{
+			"employer": "Peabody",
+			"title": "Business Analyst",
+			"location": "London, United Kingdom",
+			"datesWorked": "May 2014 - April 2015",
+			"description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut blanditiis, dolorem sed nam neque, aliquid dignissimos obcaecati minima magnam totam voluptas. Accusantium, eaque unde sit sunt mollitia esse blanditiis vitae?"
+		}, 
+		{
+			"employer": "KPMG Corporate Finance",
+			"title": "Vice President",
+			"location": "Austin, TX, United States",
+			"datesWorked": "August 2012 - March 2014",
+			"description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt doloremque, adipisci suscipit libero. Explicabo ab harum suscipit, sint dicta totam, sunt corrupti maxime recusandae quo modi similique eos placeat obcaecati."
+		}, 
+		{
+			"employer": "KPMG",
+			"title": "Executive, Real Estate Advisory Services",
+			"location": "Brisbane, Australia",
+			"datesWorked": "January 2009 - August 2012",
+			"description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis ducimus commodi omnis a quaerat quas aperiam maiores vero expedita qui doloremque, rerum ullam fugit veniam in esse magni, fugiat eligendi."
 		}
 	]
 };
 
+// PROJECTS OBJECT
 var projects = {
 	"projects": [
 		{
@@ -79,47 +104,72 @@ var projects = {
 	]
 };
 
+// APPEND BIO DETAILS TO HEADER
+var formattedName = HTMLheaderName.replace("%data%", bio.name);
+var formattedRole = HTMLheaderRole.replace("%data%", bio.role);
+var formattedbioPic = HTMLbioPic.replace("%data%", bio.picture);
+var formattedWelcomeMsg = HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage);
+// var formattedSkills = HTMLskills.replace("%data%", bio.skills);
+var formattedContactInfo = [];
+	formattedContactInfo.push(HTMLemail.replace("%data%", bio.contacts.email));
+	formattedContactInfo.push(HTMLgithub.replace("%data%", bio.contacts.github));
+	formattedContactInfo.push(HTMLtwitter.replace("%data%", bio.contacts.twitter));
+	formattedContactInfo.push(HTMLlocation.replace("%data%", bio.contacts.location));
 
-if(bio.skills.length > 0) {
-	$("#header").append(formattedSkill);
 
+$("#header").prepend(formattedRole);
+$("#header").prepend(formattedName);
+$("#header").append(formattedbioPic);
+$("#topContacts").append(formattedContactInfo);
+$("#header").append(formattedWelcomeMsg);
+$("#main").append(work["position"]);
+$("#main").append(education.name);
+
+
+// APPEND SKILLS TO THE HEADER
+if (bio.skills.length > 0) {
+	$("#header").append(HTMLskillsStart);
 	var formattedSkill = HTMLskills.replace("%data%", bio.skills[0]);
 	$("#skills").append(formattedSkill);
-	formattedSkill = HTMLskills.replace("%data%", bio.skills[1]);
+	var formattedSkill = HTMLskills.replace("%data%", bio.skills[1]);
 	$("#skills").append(formattedSkill);
-	formattedSkill = HTMLskills.replace("%data%", bio.skills[2]);
+	var formattedSkill = HTMLskills.replace("%data%", bio.skills[2]);
 	$("#skills").append(formattedSkill);
-	formattedSkill = HTMLskills.replace("%data%", bio.skills[3]);
+	var formattedSkill = HTMLskills.replace("%data%", bio.skills[3]);
 	$("#skills").append(formattedSkill);
 };
 
-
+// APPEND WORK DETAILS TO THE RESUME
 for (job in work.jobs) {
 	$("#workExperience").append(HTMLworkStart);
 	var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
   var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
   var formattedEmployerTitle = formattedEmployer + formattedTitle;
-  $(".work-entry:last").append(formattedEmployerTitle);
+  var formattedLocation = HTMLworkLocation.replace("%data%", work.jobs[job].location);
+  var formattedDate = HTMLworkDates.replace("%data%", work.jobs[job].datesWorked);
+  var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[job].description);
+  $(".work-entry:last") //
+  	.append(formattedEmployerTitle)
+  	.append(formattedLocation)
+  	.append(formattedDate)
+  	.append(formattedDescription); 
 };
 
-// var formattedName = HTMLheaderName.replace("%data%", bio.name);
-// var formattedRole = HTMLheaderRole.replace("%data%", bio.role);
-// var formattedbioPic = HTMLbioPic.replace("%data%", bio.picture);
-// var formattedWelcomeMsg = HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage);
-// var formattedSkills = HTMLskills.replace("%data%", bio.skills);
-// var formattedContactInfo = [];
-// 	formattedContactInfo.push(HTMLemail.replace("%data%", bio.contacts.email));
-// 	formattedContactInfo.push(HTMLgithub.replace("%data%", bio.contacts.github));
-// 	formattedContactInfo.push(HTMLtwitter.replace("%data%", bio.contacts.twitter));
-// 	formattedContactInfo.push(HTMLlocation.replace("%data%", bio.contacts.location));
+// INTERNATIONALIZE BUTTON FUNCTIONALITY
+function inName(name) {
+	name = bio.name.trim().split(" ");
+	name[1] = name[1].toUpperCase();
+	name[0] = name[0].slice(0,1).toUpperCase() + name[0].slice(1).toLowerCase();
+	return name[0] + " " + name[1];
+}
+
+$("#main").append(internationalizeButton);
 
 
-// $("#header").prepend(formattedRole);
-// $("#header").prepend(formattedName);
-// $("#header").append(formattedbioPic);
-// $("#topContacts").append(formattedContactInfo);
-// $("#header").append(formattedWelcomeMsg);
-// $("#header").append(formattedSkills);
-// $("#main").append(work["position"]);
-// $("#main").append(education.name);
+// Capture the user's click locations
+$(document).click(function(loc) {
+	var x = loc.pageX;
+	var y = loc.pageY;
+	logClicks(x,y);
+});
 
