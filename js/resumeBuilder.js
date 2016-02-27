@@ -1,4 +1,4 @@
-// BIO OBJECT
+// DECLARE BIO OBJECT
 var bio = {
 	"name": "Ben Stein",
 	"role": "Web Developer",
@@ -13,16 +13,23 @@ var bio = {
 	"skills": ["JavaScript", "Ruby", "Ionic", "Front-end Development"]
 };
 
-// EDUCATION OBJECT
+// DECLARE EDUCATION OBJECT
 var education = {
   "schools": [{
     "name": "University of Queensland",
     "location": "Brisbane, Australia",
-    "degree": "Bachelor of Commerce, Bachelor of Laws",
-    "dates": "2001-2010",
+    "degree": "Bachelor of Commerce",
+    "dates": "2001-2004",
     "url": "http://www.uq.edu.au",
-    "major": "Accounting, Finance, Commercial Law"
+    "major": "Accounting & Finance"
   	}, {
+  	"name": "University of Queensland",
+    "location": "Brisbane, Australia",
+    "degree": "Bachelor of Laws",
+    "dates": "2005-2010",
+    "url": "http://www.uq.edu.au",
+    "major": "Commercial Law"
+  	},{
 		"name": "Institute of Chartered Accountants",
     "location": "Sydney, Australia",
     "degree": "Graduate Diploma, Chartered Accounting",
@@ -43,7 +50,7 @@ var education = {
   }]
 };
 
-// WORK EXPERIENCE OBJECT
+// DECLARE WORK EXPERIENCE OBJECT
 var work = {
 	"jobs": [
 		{
@@ -84,22 +91,22 @@ var work = {
 	]
 };
 
-// PROJECTS OBJECT
+// DECLARE PROJECTS OBJECT
 var projects = {
 	"projects": [
 		{
 			"title": "jQuery Street Fighter",
 			"datesWorked": "December 2014 - January 2015",
 			"description": "Created an interactive jQuery site inspired by Street Fighter",
-			"images": [""],
-			"url": ""
+			"images": ["images/streetfighter.png"],
+			"url": "http://www.bumstain.github.io/jquery-streetfighter"
 		},
 		{
-			"title": "Online Portfolio",
+			"title": "Tic Tac Toe",
 			"datesWorked": "December 2015",
-			"description": "Created an online portfolio of work",
-			"images": [""],
-			"url": "/"
+			"description": "Created a simple tic tac toe game",
+			"images": ["images/tictactoe.png"],
+			"url": ""
 		}
 	]
 };
@@ -109,13 +116,11 @@ var formattedName = HTMLheaderName.replace("%data%", bio.name);
 var formattedRole = HTMLheaderRole.replace("%data%", bio.role);
 var formattedbioPic = HTMLbioPic.replace("%data%", bio.picture);
 var formattedWelcomeMsg = HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage);
-// var formattedSkills = HTMLskills.replace("%data%", bio.skills);
 var formattedContactInfo = [];
 	formattedContactInfo.push(HTMLemail.replace("%data%", bio.contacts.email));
 	formattedContactInfo.push(HTMLgithub.replace("%data%", bio.contacts.github));
 	formattedContactInfo.push(HTMLtwitter.replace("%data%", bio.contacts.twitter));
 	formattedContactInfo.push(HTMLlocation.replace("%data%", bio.contacts.location));
-
 
 $("#header").prepend(formattedRole);
 $("#header").prepend(formattedName);
@@ -124,7 +129,6 @@ $("#topContacts").append(formattedContactInfo);
 $("#header").append(formattedWelcomeMsg);
 $("#main").append(work["position"]);
 $("#main").append(education.name);
-
 
 // APPEND SKILLS TO THE HEADER
 if (bio.skills.length > 0) {
@@ -140,20 +144,51 @@ if (bio.skills.length > 0) {
 };
 
 // APPEND WORK DETAILS TO THE RESUME
-for (job in work.jobs) {
-	$("#workExperience").append(HTMLworkStart);
-	var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
-  var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
-  var formattedEmployerTitle = formattedEmployer + formattedTitle;
-  var formattedLocation = HTMLworkLocation.replace("%data%", work.jobs[job].location);
-  var formattedDate = HTMLworkDates.replace("%data%", work.jobs[job].datesWorked);
-  var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[job].description);
-  $(".work-entry:last") //
-  	.append(formattedEmployerTitle)
-  	.append(formattedLocation)
-  	.append(formattedDate)
-  	.append(formattedDescription); 
-};
+work.display = function() {
+	for (job in work.jobs) {
+		$("#workExperience").append(HTMLworkStart);
+		var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
+	  var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
+	  var formattedEmployerTitle = formattedEmployer + formattedTitle;
+	  var formattedLocation = HTMLworkLocation.replace("%data%", work.jobs[job].location);
+	  var formattedDate = HTMLworkDates.replace("%data%", work.jobs[job].datesWorked);
+	  var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[job].description);
+	  $(".work-entry:last")
+	  	.append(formattedEmployerTitle)
+	  	.append(formattedLocation)
+	  	.append(formattedDate)
+	  	.append(formattedDescription); 
+	};
+}
+
+work.display();
+
+// APPEND PROJECT DETAILS TO THE RESUME
+projects.display = function() {
+	for (project in projects.projects) {
+		$("#projects").append(HTMLprojectStart); // append Projects section
+		var formattedTitle = HTMLprojectTitle.replace("%data%", projects.projects[project].title);
+		var formattedDates = HTMLprojectDates.replace("%data%", projects.projects[project].datesWorked);
+		var formattedDescription = HTMLprojectDescription.replace("%data%", projects.projects[project].description);
+		$(".project-entry:last") // append elements to each project entry
+			.append(formattedTitle)
+			.append(formattedDates)
+			.append(formattedDescription);
+
+		if (projects.projects[project].images.length > 0) {
+			for (image in projects.projects[project].images) {
+				var formattedImage = HTMLprojectImage.replace("%data%", projects.projects[project].images[image]);
+				$(".project-entry:last").append(formattedImage);
+			}
+		}
+	}
+}
+
+projects.display();
+
+
+// APPEND EDUCATION DETAILS TO THE RESUME
+
 
 // INTERNATIONALIZE BUTTON FUNCTIONALITY
 function inName(name) {
@@ -165,6 +200,8 @@ function inName(name) {
 
 $("#main").append(internationalizeButton);
 
+// APPEND MAP TO THE RESUME
+$("#mapDiv").append(googleMap);
 
 // Capture the user's click locations
 $(document).click(function(loc) {
