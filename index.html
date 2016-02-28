@@ -3,19 +3,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Resume</title>
+  <title>Ben Stein | Resume</title>
 
   <link href="css/style.css" rel="stylesheet">
 
   <script src="js/jQuery.js"></script>
   <script src="js/helper.js"></script>
+  <!-- JSON file containing resume data -->
+  <script src="js/resumeData.js"></script>
 
-  <!--
-  Uncomment the <script> tag below when you're ready to add an interactive
-  Google Map to your resume!
-  -->
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
 </head>
+
 <body>
   <div id="main">
 
@@ -42,23 +41,10 @@
     </div>
   </div>
 
+  <!-- Script to build the resume -->
   <script src="js/resumeBuilder.js"></script>
 
-
-  <!--
-  These scripts are written in JavaScript. You'll be breaking them down as part of
-  a quiz. Essentially, the next few lines are checking to see if you have not
-  changed each section of the resume. If you have not made any changes to a section
-  of the resume, then that part of the resume does not show up. More on this in the
-  course.
-  -->
-
   <script type="text/javascript">
-    // Notice how all of a sudden there's JavaScript inside this HTML
-    // document? You can write JavaScript between <script> tags. At the end of your
-    // JavaScript, don't forget the closing script tag with the slash (/).
-
-
 
     if(document.getElementsByClassName('flex-item').length === 0) {
       document.getElementById('topContacts').style.display = 'none';
